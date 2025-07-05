@@ -1,0 +1,15 @@
+{
+  "name": "camera-mirror-preview-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-mirror-preview-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraMirrorPreviewDemo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">Mirror Preview Only</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Mirror preview but capture normal image - best user experience\n        </p>\n      </div>\n      <Camera \n        mirror=\"preview\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Mirror preview photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

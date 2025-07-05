@@ -1,0 +1,57 @@
+# This template is heavily inspired by the shadcn-ui/ui repository.
+# See: https://github.com/shadcn-ui/ui/blob/main/.github/ISSUE_TEMPLATE/feature_request.yml
+
+name: 🚀 Feature Request
+description: Create a feature request for acfui
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to submit a feature request! Please search through existing issues first to check if your request has already been submitted.
+
+  - type: checkboxes
+    id: existing-issues
+    attributes:
+      label: Existing Issues
+      description: Please search through existing issues to check if your request has already been submitted.
+      options:
+        - label: I have searched through existing issues
+          required: true
+        - label: I have read the [Contributing Guidelines](https://github.com/tobidsn/acfui/blob/main/CONTRIBUTING.md)
+          required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: Please provide a detailed description of the feature you'd like to request.
+      placeholder: A clear and concise description of what the feature is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Please provide a detailed description of the use case for this feature.
+      placeholder: A clear and concise description of the use case.
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: Please provide examples of how this feature would be used.
+      placeholder: Examples of how this feature would be used.
+
+  - type: checkboxes
+    id: contributing
+    attributes:
+      label: Contributing
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](https://github.com/tobidsn/acfui/blob/main/CONTRIBUTING.md).
+      options:
+        - label: I agree to follow this project's Contributing Guidelines
+          required: true

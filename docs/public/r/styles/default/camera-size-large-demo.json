@@ -1,0 +1,15 @@
+{
+  "name": "camera-size-large-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-size-large-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraSizeLargeDemo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">Large Size</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Large camera size (384x288px) - great for detailed photo capture\n        </p>\n      </div>\n      <Camera \n        size=\"lg\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Large size photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

@@ -1,0 +1,502 @@
+---
+title: Camera
+description: A camera component for capturing photos with front/back camera toggle, mirror modes, and mask overlays.
+preview: true
+links:
+  api: /docs/components/camera#api-reference
+---
+
+<ComponentTabs name="camera-demo" align="start" className="p-8" />
+
+## Installation
+
+### CLI
+
+```package-install
+npx shadcn@latest add "https://acfui.com/r/camera"
+```
+
+### Manual
+
+<Steps>
+  <Step>
+     Install the following dependencies:
+
+     ```package-install
+     class-variance-authority lucide-react
+     ```
+  </Step>
+  <Step>
+    Copy and paste the following code into your project.
+
+    <ComponentSource name="camera" />
+  </Step>
+</Steps>
+
+## Usage
+
+```tsx
+import { Camera } from "@/components/ui/camera"
+```
+
+```tsx
+<Camera 
+  onCapture={(imageData) => console.log('Photo captured:', imageData)}
+  onError={(error) => console.error('Camera error:', error)}
+/>
+```
+
+## Examples
+
+### Output Format Adapters
+
+The Camera component supports different output formats to suit various use cases.
+
+#### Base64 String Output (Default)
+
+Perfect for immediate display, database storage, or simple image processing.
+
+```tsx
+<Camera
+  outputFormat="base64"
+  captureFormat="image/jpeg"
+  captureQuality={0.8}
+  onCapture={(imageData) => {
+    // imageData is a base64 string
+    console.log('Base64 data:', imageData)
+    // Example: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD..."
+    
+    // Direct usage in img src
+    setProfileImage(imageData)
+  }}
+/>
+```
+
+#### File Object Output
+
+Ideal for file uploads, FormData submissions, or when you need file metadata.
+
+```tsx
+<Camera
+  outputFormat="file"
+  captureFormat="image/png"
+  captureQuality={0.9}
+  onCapture={(imageData) => {
+    if (imageData instanceof File) {
+      console.log('File object:', imageData)
+      // Example file properties:
+      // imageData.name: "photo-1703847234567.png"
+      // imageData.size: 245760 (bytes)
+      // imageData.type: "image/png"
+      // imageData.lastModified: 1703847234567
+      
+      // Direct upload to server
+      uploadFile(imageData)
+    }
+  }}
+/>
+```
+
+#### Complete Example with Both Formats
+
+```tsx
+import { Camera } from "@/components/ui/camera"
+import { useState } from "react"
+
+export function CameraExample() {
+  const [capturedData, setCapturedData] = useState<{
+    type: "base64" | "file"
+    data: string | File
+    preview?: string
+  } | null>(null)
+
+  const onCaptureBase64 = (imageData: string | File) => {
+    if (typeof imageData === "string") {
+      setCapturedData({
+        type: "base64",
+        data: imageData,
+        preview: imageData
+      })
+    }
+  }
+
+  const onCaptureFile = (imageData: string | File) => {
+    if (imageData instanceof File) {
+      // Convert File to base64 for preview
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        setCapturedData({
+          type: "file",
+          data: imageData,
+          preview: e.target?.result as string
+        })
+      }
+      reader.readAsDataURL(imageData)
+    }
+  }
+
+  const uploadFile = async (file: File) => {
+    const formData = new FormData()
+    formData.append('image', file)
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      })
+      
+      if (response.ok) {
+        console.log('File uploaded successfully')
+      }
+    } catch (error) {
+      console.error('Upload failed:', error)
+    }
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Base64 Output */}
+      <div>
+        <h3>Base64 Output</h3>
+        <Camera
+          size="sm"
+          outputFormat="base64"
+          onCapture={onCaptureBase64}
+        />
+      </div>
+
+      {/* File Output */}
+      <div>
+        <h3>File Output</h3>
+        <Camera
+          size="sm"
+          outputFormat="file"
+          onCapture={onCaptureFile}
+        />
+      </div>
+
+      {/* Display Results */}
+      {capturedData && (
+        <div className="col-span-full">
+          <h4>Captured {capturedData.type.toUpperCase()}</h4>
+          {capturedData.preview && (
+            <img src={capturedData.preview} alt="Captured" />
+          )}
+          <pre>{JSON.stringify({
+            type: capturedData.type,
+            ...(capturedData.data instanceof File ? {
+              name: capturedData.data.name,
+              size: capturedData.data.size,
+              type: capturedData.data.type
+            } : {
+              length: capturedData.data.length
+            })
+          }, null, 2)}</pre>
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+### Privacy & Camera Permissions
+
+Enhanced camera permission handling with custom modal and cross-browser compatibility.
+
+<ComponentTabs name="camera-permission-demo" align="start" className="[&>div:first-child>div]:h-auto [&>div:first-child>div]:min-h-[420px]" />
+
+#### Permission Flow
+
+The camera component includes an intelligent permission flow:
+
+1. **Permission Check**: Automatically detects if camera access is already granted
+2. **Custom Modal**: Shows user-friendly explanation before browser prompt (only when needed)
+3. **Native Prompt**: Triggers browser's permission dialog after user confirms
+4. **Direct Access**: If already granted, skips modal and starts camera immediately
+
+#### Cross-Browser Support
+
+- **Chrome/Edge**: Uses Permissions API for reliable permission detection
+- **Safari**: Falls back to getUserMedia test for compatibility 
+- **Firefox**: Full Permissions API support with enhanced error handling
+- **Mobile Browsers**: Optimized for touch interfaces and mobile permissions
+
+#### Enhanced UX Features
+
+- ✅ **Smart Modal**: Only shows when permission needed (not for returning users)
+- ✅ **Clear Instructions**: Step-by-step guidance for granting permissions
+- ✅ **Recovery Flow**: Easy retry mechanism for denied permissions
+- ✅ **Privacy Badges**: Visual indicators of data protection policies
+- ✅ **Permission Status**: Real-time display of current access level
+
+### Different Sizes
+
+Choose from predefined size variants to fit your layout needs.
+
+#### Default Size
+
+<ComponentTabs name="camera-size-default-demo" align="start" className="p-8" />
+
+#### Small Size  
+
+<ComponentTabs name="camera-size-small-demo" align="start" className="p-8" />
+
+#### Large Size
+
+<ComponentTabs name="camera-size-large-demo" align="start" className="p-8" />
+
+#### Extra Large Size
+
+<ComponentTabs name="camera-size-xl-demo" align="start" className="p-8" />
+
+### Aspect Ratios
+
+Choose from different aspect ratios to fit your design requirements.
+
+#### 4:3 Traditional
+
+<ComponentTabs name="camera-aspect-4-3-demo" align="start" className="p-8" />
+
+#### 16:9 Widescreen
+
+<ComponentTabs name="camera-aspect-16-9-demo" align="start" className="p-8" />
+
+#### 1:1 Square
+
+<ComponentTabs name="camera-aspect-1-1-demo" align="start" className="p-8" />
+
+### Mirror Modes
+
+Mirror mode allows you to flip the camera preview and/or the captured image.
+
+#### No Mirror
+
+<ComponentTabs name="camera-mirror-false-demo" align="start" className="p-8" />
+
+#### Mirror All
+
+<ComponentTabs name="camera-mirror-true-demo" align="start" className="p-8" />
+
+#### Mirror Preview Only
+
+<ComponentTabs name="camera-mirror-preview-demo" align="start" className="p-8" />
+
+### Mask Overlays
+
+Add overlay masks to guide photo composition for specific use cases.
+
+#### Square Mask
+
+<ComponentTabs name="camera-mask-square-demo" align="start" className="p-8" />
+
+#### Round Mask
+
+<ComponentTabs name="camera-mask-round-demo" align="start" className="p-8" />
+
+#### Card Mask
+
+<ComponentTabs name="camera-mask-card-demo" align="start" className="p-8" />
+
+### Manual Control
+
+<ComponentTabs name="camera-manual-control-demo" align="start" className="p-8" />
+
+### Custom Capture Handler
+
+<ComponentTabs name="camera-custom-capture-demo" align="start" className="p-8" />
+
+## Privacy & Security
+
+### Enhanced Camera Permission Flow
+
+The camera component features an intelligent, privacy-first permission system:
+
+#### Smart Permission Detection
+```tsx
+// Automatic permission checking on component mount
+useEffect(() => {
+  checkCameraPermission() // Multi-method browser detection
+}, [])
+```
+
+#### Custom Modal Before Native Prompt
+- **When needed**: Shows custom explanation modal before browser prompt
+- **When not needed**: Direct camera access for returning users with permissions
+- **Cross-browser**: Works consistently across Chrome, Safari, Firefox, Edge
+
+#### Permission States Handled
+- **`checking`**: Detecting current permission status
+- **`prompt`**: Shows custom modal → triggers native browser prompt  
+- **`granted`**: Direct camera access, no modal needed
+- **`denied`**: Clear recovery instructions with retry mechanism
+
+### Camera Access Permission Flow
+
+The camera component includes comprehensive permission handling with privacy-first approach:
+
+- **Clear Permission Requests**: Custom modal explains camera usage before native prompt
+- **Privacy Information**: Transparent communication about data handling
+- **Error Recovery**: Graceful handling of permission denied states with retry options  
+- **Local Processing**: All camera processing happens client-side only
+
+### Privacy Features
+
+- 🔒 **Local Processing**: No data sent to servers
+- 🚫 **No Recording**: Only captures individual photos
+- 👁️ **Transparent Usage**: Clear privacy information displayed
+- ⚡ **Instant Revocation**: Users can disable camera access anytime
+- 🛡️ **Secure by Default**: HTTPS required in production
+- 🎯 **Smart UX**: Modal only shows when permission actually needed
+
+```tsx
+// Enhanced privacy-focused camera usage
+<Camera
+  onStart={() => console.log('Camera started with user consent')}
+  onError={(error) => {
+    // Handle permission denied gracefully with recovery options
+    if (error.includes('Permission denied')) {
+      showPermissionRecoveryFlow()
+    }
+  }}
+  autoStart={false} // Requires explicit user action
+/>
+```
+
+## API Reference
+
+### Camera
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg" \| "xl" \| "full"` | `"md"` | Size variant of the camera component |
+| `aspect` | `"4:3" \| "16:9" \| "1:1"` | `"4:3"` | Aspect ratio of the camera |
+| `onCapture` | `(imageData: string \| File) => void` | - | Callback when a photo is captured |
+| `onError` | `(error: string) => void` | - | Callback when an error occurs |
+| `onStart` | `() => void` | - | Callback when camera starts |
+| `autoStart` | `boolean` | `true` | Whether to automatically start the camera |
+| `showControls` | `boolean` | `true` | Whether to show camera controls |
+| `allowDownload` | `boolean` | `true` | Whether to allow downloading captured photos |
+| `silent` | `boolean` | `false` | Whether to disable shutter sound |
+| `mirror` | `boolean \| "preview"` | `false` | Mirror mode: `true` (all), `"preview"` (preview only), `false` (none) |
+| `mask` | `"none" \| "square" \| "round" \| "card"` | `"none"` | Overlay mask for guided composition |
+| `outputFormat` | `"base64" \| "file"` | `"base64"` | Output format: base64 string or File object |
+| `captureFormat` | `"image/jpeg" \| "image/png" \| "image/webp"` | `"image/jpeg"` | Image format for capture |
+| `captureQuality` | `number` | `0.9` | Image quality (0.0 to 1.0) |
+
+### Output Format Comparison
+
+| Format | Type | Use Cases | Pros | Cons |
+| --- | --- | --- | --- | --- |
+| `base64` | `string` | Display, database storage, simple processing | Immediate usage, no conversion needed | Large string size, not ideal for uploads |
+| `file` | `File` | File uploads, FormData, server submissions | Proper file handling, metadata included | Requires conversion for display |
+
+### Example Values
+
+#### Base64 Output
+```javascript
+// Example base64 string (truncated)
+"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+
+// Length: typically 50,000-200,000 characters
+```
+
+#### File Output
+```javascript
+// Example File object properties
+{
+  name: "photo-1703847234567.png",
+  size: 245760,
+  type: "image/png", 
+  lastModified: 1703847234567,
+  // Methods: stream(), text(), arrayBuffer(), etc.
+}
+```
+
+## Size Variants
+
+| Size | Dimensions | Use Case |
+| --- | --- | --- |
+| `sm` | 256×192px | Thumbnails, compact spaces |
+| `md` | 320×240px | Default, most use cases |
+| `lg` | 384×288px | Detailed captures |
+| `xl` | 448×320px | High-quality photos |
+| `full` | 100% container | Full-screen camera |
+
+## Browser Support
+
+- **Chrome**: ✅ Full support
+- **Firefox**: ✅ Full support  
+- **Safari**: ✅ Full support (iOS 11+)
+- **Edge**: ✅ Full support
+
+**Note**: Camera access requires HTTPS in production environments and user permission.
+
+## Accessibility
+
+- Proper ARIA labels for camera controls
+- Keyboard navigation support
+- Screen reader announcements for state changes
+- High contrast mode compatibility
+
+### Keyboard Interactions
+
+<KeyboardShortcutsTable
+  shortcuts={[
+    {
+      keys: ["Space", "Enter"],
+      description: "When focus is on the capture button, takes a photo.",
+    },
+    {
+      keys: ["Tab"],
+      description: "Moves focus between camera controls (capture, toggle, sound, stop).",
+    },
+    {
+      keys: ["Escape"],
+      description: "Stops the camera when active.",
+    },
+  ]}
+/>
+
+## Examples in Production
+
+### Profile Photo Capture
+
+```tsx
+<Camera
+  mask="square"
+  aspect="1:1"
+  mirror="preview"
+  onCapture={(imageData) => {
+    // Upload to your backend
+    uploadProfilePhoto(imageData)
+  }}
+/>
+```
+
+### ID Card Scanning
+
+```tsx
+<Camera
+  mask="card"
+  aspect="16:9"
+  captureQuality={1.0}
+  onCapture={(imageData) => {
+    // Process ID card
+    processIDCard(imageData)
+  }}
+/>
+```
+
+### Avatar Creation
+
+```tsx
+<Camera
+  mask="round"
+  aspect="1:1"
+  size="sm"
+  onCapture={(imageData) => {
+    // Create avatar
+    createAvatar(imageData)
+  }}
+/>
+``` 

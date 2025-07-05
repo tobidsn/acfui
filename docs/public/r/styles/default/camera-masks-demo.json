@@ -1,0 +1,15 @@
+{
+  "name": "camera-masks-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-masks-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraMasksDemo() {\n  return (\n    <div className=\"w-full space-y-8\">\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">Square Mask</h3>\n        <p className=\"text-xs text-muted-foreground\">Perfect for profile photos</p>\n        <div className=\"flex justify-center\">\n          <Camera mask=\"square\" autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">Round Mask</h3>\n        <p className=\"text-xs text-muted-foreground\">Ideal for avatars</p>\n        <div className=\"flex justify-center\">\n          <Camera mask=\"round\" autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">Card Mask</h3>\n        <p className=\"text-xs text-muted-foreground\">Great for ID cards</p>\n        <div className=\"flex justify-center\">\n          <Camera mask=\"card\" autoStart={false} />\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

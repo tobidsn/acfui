@@ -1,0 +1,23 @@
+{
+  "name": "post-object-demo",
+  "type": "registry:example",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "post-object",
+    "badge",
+    "button",
+    "popover",
+    "command",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "examples/post-object-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { PostObject, type PostObjectItem } from \"@/registry/default/ui/post-object\"\n\nconst posts = [\n  {\n    id: 1,\n    title: \"Getting Started with React\",\n    type: \"post\",\n    status: \"publish\" as const,\n    excerpt: \"Learn the fundamentals of React development with this comprehensive guide.\",\n    date: \"2024-01-15\",\n  },\n  {\n    id: 2,\n    title: \"Advanced TypeScript Patterns\",\n    type: \"post\", \n    status: \"publish\" as const,\n    excerpt: \"Explore advanced TypeScript patterns for better type safety.\",\n    date: \"2024-01-10\",\n  },\n  {\n    id: 3,\n    title: \"Building UIs with Tailwind CSS\",\n    type: \"post\",\n    status: \"draft\" as const,\n    excerpt: \"Create beautiful, responsive interfaces with Tailwind CSS.\",\n    date: \"2024-01-05\",\n  },\n  {\n    id: 4,\n    title: \"State Management Guide\",\n    type: \"guide\",\n    status: \"publish\" as const,\n    excerpt: \"Complete guide to managing state in modern React applications.\",\n    date: \"2024-01-20\",\n  },\n  {\n    id: 5,\n    title: \"API Design Best Practices\",\n    type: \"guide\",\n    status: \"publish\" as const,\n    excerpt: \"Design robust APIs that scale with your application needs.\",\n    date: \"2024-01-12\",\n  },\n] satisfies PostObjectItem[]\n\nexport default function PostObjectDemo() {\n  const [selectedPost, setSelectedPost] = useState<PostObjectItem | null>(null)\n\n  return (\n    <div className=\"w-full max-w-2xl space-y-4\">\n      <div>\n        <h3 className=\"text-lg font-semibold\">Featured Post</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Select a post to feature on the homepage\n        </p>\n      </div>\n\n      <PostObject\n        items={posts}\n        selectedItems={selectedPost ? [selectedPost] : []}\n        onChange={(items) => {\n          const postItems = items as PostObjectItem[]\n          setSelectedPost(postItems.length > 0 ? postItems[0] || null : null)\n        }}\n        multiple={false}\n        allowNull={true}\n        postTypes={[]}\n        postStatuses={[\"publish\", \"draft\"]}\n        showFilters={[\"search\", \"post_type\"]}\n        placeholder=\"Select a featured post...\"\n        searchPlaceholder=\"Search posts...\"\n        showExcerpt={true}\n        showDate={true}\n      />\n\n      {selectedPost && (\n        <div className=\"mt-6 p-4 bg-muted/30 rounded-lg\">\n          <h4 className=\"font-medium\">Selected Post:</h4>\n          <div className=\"mt-2\">\n            <div className=\"font-medium\">{selectedPost.title}</div>\n            <div className=\"text-sm text-muted-foreground mt-1\">\n              {selectedPost.excerpt}\n            </div>\n            <div className=\"flex items-center gap-2 mt-2 text-xs text-muted-foreground\">\n              <span className=\"capitalize\">{selectedPost.type}</span>\n              <span>•</span>\n              <span>{selectedPost.date}</span>\n              <span>•</span>\n              <span className=\"capitalize\">{selectedPost.status}</span>\n            </div>\n          </div>\n        </div>\n      )}\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

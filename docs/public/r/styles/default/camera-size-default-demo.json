@@ -1,0 +1,15 @@
+{
+  "name": "camera-size-default-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-size-default-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraSizeDefaultDemo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">Default Size</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Standard camera size (320x240px) - perfect for most use cases\n        </p>\n      </div>\n      <Camera \n        size=\"md\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Default size photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

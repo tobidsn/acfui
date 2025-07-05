@@ -1,0 +1,19 @@
+{
+  "name": "camera-custom-capture-demo",
+  "type": "registry:example",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "camera",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-custom-capture-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Camera } from \"@/registry/default/ui/camera\"\nimport { Button } from \"@/components/ui/button\"\nimport { X } from \"lucide-react\"\n\nexport default function CameraCustomCaptureDemo() {\n  const [capturedPhotos, setCapturedPhotos] = useState<string[]>([])\n\n  const onCapture = (imageData: string) => {\n    setCapturedPhotos(prev => [...prev, imageData])\n  }\n\n  const removePhoto = (index: number) => {\n    setCapturedPhotos(prev => prev.filter((_, i) => i !== index))\n  }\n\n  const clearAll = () => {\n    setCapturedPhotos([])\n  }\n\n  return (\n    <div className=\"w-full max-w-4xl mx-auto\">\n      <div className=\"max-h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800\">\n        <div className=\"space-y-6 p-1\">\n          <div className=\"flex justify-center\">\n            <Camera\n              onCapture={onCapture}\n              onError={(error) => {\n                console.error(\"Camera error:\", error)\n              }}\n              mask=\"square\"\n              captureQuality={0.8}\n            />\n          </div>\n          \n          {capturedPhotos.length > 0 && (\n            <div className=\"space-y-4\">\n              <div className=\"flex items-center justify-between\">\n                <h3 className=\"text-lg font-medium\">\n                  Captured Photos ({capturedPhotos.length})\n                </h3>\n                <Button onClick={clearAll} variant=\"outline\" size=\"sm\">\n                  Clear All\n                </Button>\n              </div>\n              \n              <div className=\"max-h-80 overflow-y-auto rounded-lg border bg-muted/20 p-3\">\n                <div className=\"grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4\">\n                  {capturedPhotos.map((photo, index) => (\n                    <div key={index} className=\"relative group\">\n                      <img\n                        src={photo}\n                        alt={`Captured photo ${index + 1}`}\n                        className=\"w-full h-32 object-cover rounded-lg border\"\n                      />\n                      <Button\n                        onClick={() => removePhoto(index)}\n                        variant=\"secondary\"\n                        size=\"icon\"\n                        className=\"absolute top-2 right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity\"\n                      >\n                        <X className=\"h-3 w-3\" />\n                      </Button>\n                    </div>\n                  ))}\n                </div>\n              </div>\n            </div>\n          )}\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

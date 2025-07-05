@@ -1,0 +1,16 @@
+{
+  "name": "camera-manual-control-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-manual-control-demo.tsx",
+      "content": "\"use client\"\n\nimport { useRef } from \"react\"\nimport { Camera, type CameraRef } from \"@/registry/default/ui/camera\"\nimport { Button } from \"@/components/ui/button\"\n\nexport default function CameraManualControlDemo() {\n  const cameraRef = useRef<CameraRef>(null)\n\n  const startCamera = () => {\n    cameraRef.current?.startCamera()\n  }\n\n  const stopCamera = () => {\n    cameraRef.current?.stopCamera()\n  }\n\n  const toggleCamera = () => {\n    cameraRef.current?.toggleCamera()\n  }\n\n  const capturePhoto = () => {\n    const imageData = cameraRef.current?.capturePhoto()\n    if (imageData) {\n      console.log(\"Photo captured manually:\", imageData.slice(0, 50) + \"...\")\n    }\n  }\n\n  return (\n    <div className=\"w-full max-w-lg mx-auto\">\n      <div className=\"space-y-4\">\n        <div className=\"flex justify-center\">\n          <Camera\n            ref={cameraRef}\n            autoStart={false}\n            showControls={false}\n            onCapture={(imageData) => {\n              console.log(\"Photo captured:\", imageData.slice(0, 50) + \"...\")\n            }}\n          />\n        </div>\n        <div className=\"flex flex-wrap justify-center gap-2\">\n          <Button onClick={startCamera} variant=\"outline\" size=\"sm\">\n            Start Camera\n          </Button>\n          <Button onClick={stopCamera} variant=\"outline\" size=\"sm\">\n            Stop Camera\n          </Button>\n          <Button onClick={toggleCamera} variant=\"outline\" size=\"sm\">\n            Toggle Camera\n          </Button>\n          <Button onClick={capturePhoto} size=\"sm\">\n            Capture Photo\n          </Button>\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

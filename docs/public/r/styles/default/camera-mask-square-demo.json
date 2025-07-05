@@ -1,0 +1,15 @@
+{
+  "name": "camera-mask-square-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-mask-square-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraMaskSquareDemo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">Square Mask</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Perfect for profile photos and square avatars\n        </p>\n      </div>\n      <Camera \n        mask=\"square\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Square mask photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

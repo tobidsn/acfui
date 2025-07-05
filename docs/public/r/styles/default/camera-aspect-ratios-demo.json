@@ -1,0 +1,15 @@
+{
+  "name": "camera-aspect-ratios-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-aspect-ratios-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraAspectRatiosDemo() {\n  return (\n    <div className=\"w-full space-y-8\">\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">4:3 (Traditional)</h3>\n        <div className=\"flex justify-center\">\n          <Camera aspect=\"4:3\" autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">16:9 (Widescreen)</h3>\n        <div className=\"flex justify-center\">\n          <Camera aspect=\"16:9\" autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">1:1 (Square)</h3>\n        <div className=\"flex justify-center\">\n          <Camera aspect=\"1:1\" autoStart={false} />\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

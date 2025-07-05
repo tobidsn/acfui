@@ -1,0 +1,394 @@
+---
+title: Relationship
+description: A dual-column component for selecting one or more posts, pages, or custom content items with search and filtering capabilities.
+preview: true
+links:
+  api: /docs/components/relationship#api-reference
+  source: https://github.com/tobi/acfui/blob/main/docs/registry/default/ui/relationship.tsx
+---
+
+<ComponentTabs name="relationship-demo" />
+
+## Installation
+
+### CLI
+
+```package-install
+npx shadcn@latest add "https://acfui.com/r/relationship"
+```
+
+### Manual
+
+<Steps>
+  <Step>
+    Install the following dependencies:
+
+    ```package-install
+    lucide-react class-variance-authority
+    ```
+  </Step>
+  <Step>
+    Copy and paste the following code into your project.
+
+    <ComponentSource name="relationship" />
+  </Step>
+  <Step>
+    Update the import paths to match your project setup.
+  </Step>
+</Steps>
+
+## Usage
+
+```tsx
+import { Relationship } from "@/components/ui/relationship"
+```
+
+```tsx
+<Relationship
+  items={posts}
+  selectedItems={selectedPosts}
+  onChange={(items) => setSelectedPosts(items)}
+  multiple={true}
+  max={5}
+/>
+```
+
+## Examples
+
+### Basic
+
+A basic relationship field with static data, search, and filtering capabilities.
+
+<ComponentTabs name="relationship-demo" />
+
+### Async Loading
+
+Load data asynchronously with search and filtering. Perfect for large datasets that need server-side filtering.
+
+<ComponentTabs name="relationship-async-demo" />
+
+### Single Selection
+
+Configure for single item selection with validation and error handling.
+
+<ComponentTabs name="relationship-single-demo" />
+
+### Advanced Configuration
+
+Comprehensive example showcasing all relationship features with dynamic settings.
+
+<ComponentTabs name="relationship-advanced-demo" />
+
+## Data Structure
+
+### RelationshipItem
+
+The component expects items to follow this structure:
+
+```tsx
+interface RelationshipItem {
+  id: string | number          // Unique identifier
+  title: string               // Display title
+  type?: string              // Content type (post, page, etc.)
+  status?: "publish" | "draft" | "private"  // Publication status
+  taxonomy?: string[]        // Categories, tags, etc.
+  featured_image?: string    // Image URL
+  excerpt?: string          // Short description
+  date?: string            // Publication date
+  url?: string            // Preview URL
+}
+```
+
+### Example Data
+
+```tsx
+const posts: RelationshipItem[] = [
+  {
+    id: 1,
+    title: "Introduction to React Hooks",
+    type: "post",
+    status: "publish",
+    taxonomy: ["React", "JavaScript"],
+    excerpt: "Learn the fundamentals of React Hooks...",
+    date: "2024-01-15",
+    featured_image: "https://example.com/image.jpg",
+    url: "/posts/react-hooks"
+  },
+  // ... more items
+]
+```
+
+## Async Loading
+
+For large datasets, use the `onLoad` prop to fetch data asynchronously:
+
+```tsx
+const fetchPosts = async (filter: RelationshipFilter): Promise<RelationshipItem[]> => {
+  const response = await fetch('/api/posts', {
+    method: 'POST',
+    body: JSON.stringify(filter)
+  })
+  return response.json()
+}
+
+<Relationship
+  onLoad={fetchPosts}
+  selectedItems={selected}
+  onChange={setSelected}
+  postTypes={["post", "page"]}
+  taxonomies={["category", "tag"]}
+/>
+```
+
+The `onLoad` function receives a filter object with:
+
+```tsx
+interface RelationshipFilter {
+  search?: string           // Search query
+  post_type?: string[]     // Filter by post types
+  post_status?: string[]   // Filter by post statuses  
+  taxonomy?: string[]      // Filter by taxonomies
+}
+```
+
+## Filtering Options
+
+Control which filters are displayed using the `showFilters` prop:
+
+```tsx
+// Show all filters (default)
+<Relationship showFilters={true} />
+
+// Show only search
+<Relationship showFilters={["search"]} />
+
+// Show search and post type filters
+<Relationship showFilters={["search", "post_type"]} />
+
+// Hide all filters
+<Relationship showFilters={false} />
+```
+
+## Display Options
+
+Customize the item display with various options:
+
+```tsx
+<Relationship
+  showExcerpt={true}          // Show item excerpts
+  showDate={true}             // Show publication dates
+  showFeaturedImage={true}    // Show featured images
+  showPreview={true}          // Show preview links
+  sortable={true}             // Show drag handles (UI ready)
+/>
+```
+
+## Return Formats
+
+Choose how selected items are returned:
+
+```tsx
+// Return full objects (default)
+<Relationship
+  returnFormat="object"
+  onChange={(items) => {
+    // items: RelationshipItem[]
+    console.log(items)
+  }}
+/>
+
+// Return only IDs
+<Relationship
+  returnFormat="id"
+  onChange={(items) => {
+    // items: (string | number)[]
+    console.log(items) // [1, 2, 3]
+  }}
+/>
+```
+
+## Validation
+
+Add validation rules for selection:
+
+```tsx
+<Relationship
+  required={true}           // Field is required
+  min={1}                  // Minimum selections
+  max={5}                  // Maximum selections
+  error="Please select at least one item"
+  variant="error"          // Error styling
+/>
+```
+
+## API Reference
+
+### Relationship
+
+<AutoTypeTable
+  path="./registry/default/ui/relationship.tsx"
+  name="RelationshipProps"
+/>
+
+### RelationshipItem Interface
+
+```tsx
+interface RelationshipItem {
+  id: string | number          // Unique identifier
+  title: string               // Display title
+  type?: string              // Post type (post, page, etc.)
+  status?: "publish" | "draft" | "private"  // Publication status
+  taxonomy?: string[]        // Categories, tags, etc.
+  featured_image?: string    // Image URL
+  excerpt?: string          // Short description
+  date?: string            // Publication date
+  url?: string            // Preview URL
+}
+```
+
+### RelationshipFilter Interface
+
+```tsx
+interface RelationshipFilter {
+  search?: string           // Search query
+  post_type?: string[]     // Filter by post types
+  post_status?: string[]   // Filter by post statuses
+  taxonomy?: string[]      // Filter by taxonomies
+}
+```
+
+### Event Handlers
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `onChange` | `(items: RelationshipItem[] \| string[] \| number[]) => void` | Called when selection changes |
+| `onSelect` | `(item: RelationshipItem) => void` | Called when an item is selected |
+| `onRemove` | `(item: RelationshipItem) => void` | Called when an item is removed |
+| `onLoad` | `(filter: RelationshipFilter) => Promise<RelationshipItem[]>` | Async data loading function |
+
+### Configuration Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `multiple` | `boolean` | `true` | Allow multiple selections |
+| `min` | `number` | `0` | Minimum required selections |
+| `max` | `number` | `10` | Maximum allowed selections |
+| `required` | `boolean` | `false` | Whether field is required |
+| `returnFormat` | `"object" \| "id"` | `"object"` | Format of returned data |
+
+### Display Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `showExcerpt` | `boolean` | `false` | Show item excerpts |
+| `showDate` | `boolean` | `false` | Show item dates |
+| `showFeaturedImage` | `boolean` | `false` | Show featured images |
+| `showPreview` | `boolean` | `false` | Show preview links |
+| `sortable` | `boolean` | `false` | Show drag handles for sorting |
+
+### Filter Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `postTypes` | `string[]` | `[]` | Available post types for filtering |
+| `postStatuses` | `string[]` | `[]` | Available post statuses for filtering |
+| `taxonomies` | `string[]` | `[]` | Available taxonomies for filtering |
+| `showFilters` | `boolean \| string[]` | `true` | Which filters to show |
+
+### Text Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `searchPlaceholder` | `string` | `"Search..."` | Search input placeholder |
+| `noItemsText` | `string` | `"No items found"` | Text when no items available |
+| `noSelectedText` | `string` | `"No items selected"` | Text when nothing selected |
+| `loadingText` | `string` | `"Loading..."` | Loading state text |
+| `instructions` | `string` | - | Instructions text at top |
+
+### Styling Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "error"` | `"default"` | Visual variant |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Size variant |
+| `error` | `string` | - | Error message to display |
+
+## Common Patterns
+
+### Content Management System
+
+```tsx
+const [parentPage, setParentPage] = useState(null)
+
+<Relationship
+  items={pages}
+  selectedItems={parentPage ? [parentPage] : []}
+  onChange={(items) => setParentPage(items[0] || null)}
+  multiple={false}
+  max={1}
+  required={true}
+  showFilters={["search"]}
+  error={errors.parent_page}
+/>
+```
+
+### E-commerce Related Products
+
+```tsx
+const [relatedProducts, setRelatedProducts] = useState([])
+
+<Relationship
+  onLoad={fetchProducts}
+  selectedItems={relatedProducts}
+  onChange={setRelatedProducts}
+  postTypes={["product"]}
+  taxonomies={["product_cat", "product_tag"]}
+  showFeaturedImage={true}
+  showExcerpt={true}
+  max={8}
+  returnFormat="id"
+/>
+```
+
+### Blog Post Relations
+
+```tsx
+const [relatedPosts, setRelatedPosts] = useState([])
+
+<Relationship
+  onLoad={async (filter) => {
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(filter)
+    })
+    return response.json()
+  }}
+  selectedItems={relatedPosts}
+  onChange={setRelatedPosts}
+  postTypes={["post", "page", "article"]}
+  taxonomies={["category", "tag"]}
+  showExcerpt={true}
+  showFeaturedImage={true}
+  max={5}
+/>
+```
+
+## Accessibility
+
+The Relationship component follows accessibility best practices:
+
+- **Keyboard Navigation** - Full keyboard support for all interactions
+- **Screen Reader Support** - Proper ARIA labels and descriptions
+- **Focus Management** - Clear focus indicators and logical tab order
+- **High Contrast** - Supports high contrast mode
+- **Reduced Motion** - Respects `prefers-reduced-motion` settings
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Move focus between interface elements |
+| `Enter` | Select/deselect items |
+| `Escape` | Clear focus from filters |
+| `Arrow Keys` | Navigate through available items | 

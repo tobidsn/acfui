@@ -1,0 +1,15 @@
+{
+  "name": "camera-mirror-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-mirror-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraMirrorDemo() {\n  return (\n    <div className=\"w-full space-y-8\">\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">No Mirror</h3>\n        <p className=\"text-xs text-muted-foreground\">Default behavior</p>\n        <div className=\"flex justify-center\">\n          <Camera mirror={false} autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">Mirror All</h3>\n        <p className=\"text-xs text-muted-foreground\">Both preview and capture</p>\n        <div className=\"flex justify-center\">\n          <Camera mirror={true} autoStart={false} />\n        </div>\n      </div>\n      <div className=\"space-y-4\">\n        <h3 className=\"text-sm font-medium\">Mirror Preview Only</h3>\n        <p className=\"text-xs text-muted-foreground\">Preview mirrored, capture normal</p>\n        <div className=\"flex justify-center\">\n          <Camera mirror=\"preview\" autoStart={false} />\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

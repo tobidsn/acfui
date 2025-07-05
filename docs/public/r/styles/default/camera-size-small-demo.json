@@ -1,0 +1,15 @@
+{
+  "name": "camera-size-small-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-size-small-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraSizeSmallDemo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">Small Size</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Compact camera size (256x192px) - ideal for thumbnails and tight spaces\n        </p>\n      </div>\n      <Camera \n        size=\"sm\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Small size photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

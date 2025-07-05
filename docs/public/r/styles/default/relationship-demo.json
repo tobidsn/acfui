@@ -1,0 +1,22 @@
+{
+  "name": "relationship-demo",
+  "type": "registry:example",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "relationship",
+    "badge",
+    "button",
+    "input",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "examples/relationship-demo.tsx",
+      "content": "\"use client\"\n\nimport { useState } from \"react\"\nimport { Relationship, type RelationshipItem } from \"@/registry/default/ui/relationship\"\n\nconst posts = [\n  {\n    id: 1,\n    title: \"Getting Started with React\",\n    type: \"post\",\n    status: \"publish\" as const,\n  },\n  {\n    id: 2,\n    title: \"Advanced TypeScript Patterns\",\n    type: \"post\", \n    status: \"publish\" as const,\n  },\n  {\n    id: 3,\n    title: \"Building UIs with Tailwind CSS\",\n    type: \"post\",\n    status: \"draft\" as const,\n  },\n  {\n    id: 4,\n    title: \"State Management Guide\",\n    type: \"guide\",\n    status: \"publish\" as const,\n  },\n  {\n    id: 5,\n    title: \"API Design Best Practices\",\n    type: \"guide\",\n    status: \"publish\" as const,\n  },\n  {\n    id: 6,\n    title: \"Component Architecture\",\n    type: \"tutorial\",\n    status: \"publish\" as const,\n  },\n] satisfies RelationshipItem[]\n\nexport default function RelationshipDemo() {\n  const [selectedPosts, setSelectedPosts] = useState<RelationshipItem[]>([])\n\n  return (\n    <div className=\"w-full max-w-4xl\">\n      <div className=\"space-y-4\">\n        <div>\n          <h3 className=\"text-lg font-semibold\">Related Posts</h3>\n          <p className=\"text-sm text-muted-foreground\">\n            Select up to 3 related posts to display\n          </p>\n        </div>\n        \n        <p className=\"text-sm text-muted-foreground\">\n          Choose posts that are related to the current content\n        </p>\n\n        <Relationship\n          items={posts}\n          selectedItems={selectedPosts}\n          onChange={(items) => setSelectedPosts(items as RelationshipItem[])}\n          multiple={true}\n          max={3}\n          showFilters={[\"search\", \"post_type\", \"taxonomy\"]}\n          postTypes={[\"post\", \"guide\", \"tutorial\"]}\n          taxonomies={[\"React\", \"JavaScript\", \"TypeScript\", \"CSS\", \"Tailwind\"]}\n          searchPlaceholder=\"Search posts...\"\n        />\n        \n        <div className=\"text-sm text-muted-foreground\">\n          {selectedPosts.length} selected / 3 max\n        </div>\n      </div>\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

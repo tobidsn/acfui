@@ -1,0 +1,15 @@
+{
+  "name": "camera-aspect-1-1-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-aspect-1-1-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraAspect11Demo() {\n  return (\n    <div className=\"flex flex-col items-center space-y-4\">\n      <div className=\"text-center space-y-2\">\n        <h3 className=\"text-lg font-medium\">1:1 Aspect Ratio</h3>\n        <p className=\"text-sm text-muted-foreground\">\n          Square format - ideal for profile photos and social media\n        </p>\n      </div>\n      <Camera \n        aspect=\"1:1\" \n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"1:1 aspect photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

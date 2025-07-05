@@ -1,0 +1,15 @@
+{
+  "name": "camera-demo",
+  "type": "registry:example",
+  "registryDependencies": [
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "examples/camera-demo.tsx",
+      "content": "\"use client\"\n\nimport { Camera } from \"@/registry/default/ui/camera\"\n\nexport default function CameraDemo() {\n  return (\n    <div className=\"flex justify-center\">\n      <Camera\n        autoStart={false}\n        onCapture={(imageData) => {\n          console.log(\"Photo captured:\", imageData.slice(0, 50) + \"...\")\n        }}\n        onError={(error) => {\n          console.error(\"Camera error:\", error)\n        }}\n        onStart={() => {\n          console.log(\"Camera started\")\n        }}\n      />\n    </div>\n  )\n} ",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

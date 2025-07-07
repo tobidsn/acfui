@@ -8,6 +8,7 @@ export const siteConfig: SiteConfig = {
   ogImage: "https://acfui.com/opengraph-image.png",
   links: {
     twitter: "https://twitter.com/tobidsn",
-    github: "https://github.com/tobidsn",
+    github: "https://github.com/tobidsn/acfui",
+    medium: "https://medium.com/@tobidsn",
   },
 };

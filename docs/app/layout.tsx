@@ -110,6 +110,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
             `,
           }}
         />
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7873202993924072"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <TailwindIndicator />
         <Toaster />
         <ReactScan />

@@ -42,6 +42,9 @@ export const metadata: Metadata = {
     },
   ],
   creator: "tobidsn",
+  other: {
+    "google-adsense-account": "ca-pub-7873202993924072",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

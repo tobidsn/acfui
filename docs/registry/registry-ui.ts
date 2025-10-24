@@ -49,4 +49,16 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "one-click-blog-post",
+    type: "registry:ui",
+    dependencies: ["class-variance-authority", "lucide-react", "sonner"],
+    registryDependencies: ["button", "input", "card", "label", "tooltip"],
+    files: [
+      {
+        path: "ui/one-click-blog-post.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ];

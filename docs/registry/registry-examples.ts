@@ -72,7 +72,14 @@ export const examples: Registry["items"] = [
     name: "camera-permission-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["camera", "button", "card", "alert", "badge", "dialog"],
+    registryDependencies: [
+      "camera",
+      "button",
+      "card",
+      "alert",
+      "badge",
+      "dialog",
+    ],
     files: [
       {
         path: "examples/camera-permission-demo.tsx",
@@ -194,7 +201,14 @@ export const examples: Registry["items"] = [
     name: "post-object-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["post-object", "badge", "button", "popover", "command", "select"],
+    registryDependencies: [
+      "post-object",
+      "badge",
+      "button",
+      "popover",
+      "command",
+      "select",
+    ],
     files: [
       {
         path: "examples/post-object-demo.tsx",
@@ -206,7 +220,14 @@ export const examples: Registry["items"] = [
     name: "post-object-multiple-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["post-object", "badge", "button", "popover", "command", "select"],
+    registryDependencies: [
+      "post-object",
+      "badge",
+      "button",
+      "popover",
+      "command",
+      "select",
+    ],
     files: [
       {
         path: "examples/post-object-multiple-demo.tsx",
@@ -218,7 +239,14 @@ export const examples: Registry["items"] = [
     name: "post-object-async-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["post-object", "badge", "button", "popover", "command", "select"],
+    registryDependencies: [
+      "post-object",
+      "badge",
+      "button",
+      "popover",
+      "command",
+      "select",
+    ],
     files: [
       {
         path: "examples/post-object-async-demo.tsx",
@@ -230,7 +258,13 @@ export const examples: Registry["items"] = [
     name: "relationship-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["relationship", "badge", "button", "input", "select"],
+    registryDependencies: [
+      "relationship",
+      "badge",
+      "button",
+      "input",
+      "select",
+    ],
     files: [
       {
         path: "examples/relationship-demo.tsx",
@@ -242,7 +276,14 @@ export const examples: Registry["items"] = [
     name: "relationship-single-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["relationship", "badge", "button", "input", "select", "card"],
+    registryDependencies: [
+      "relationship",
+      "badge",
+      "button",
+      "input",
+      "select",
+      "card",
+    ],
     files: [
       {
         path: "examples/relationship-single-demo.tsx",
@@ -254,7 +295,13 @@ export const examples: Registry["items"] = [
     name: "relationship-async-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["relationship", "badge", "button", "input", "select"],
+    registryDependencies: [
+      "relationship",
+      "badge",
+      "button",
+      "input",
+      "select",
+    ],
     files: [
       {
         path: "examples/relationship-async-demo.tsx",
@@ -266,7 +313,17 @@ export const examples: Registry["items"] = [
     name: "relationship-advanced-demo",
     type: "registry:example",
     dependencies: ["lucide-react"],
-    registryDependencies: ["relationship", "badge", "button", "input", "select", "card", "switch", "label", "tabs"],
+    registryDependencies: [
+      "relationship",
+      "badge",
+      "button",
+      "input",
+      "select",
+      "card",
+      "switch",
+      "label",
+      "tabs",
+    ],
     files: [
       {
         path: "examples/relationship-advanced-demo.tsx",
@@ -318,6 +375,18 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/table-field-dynamic-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "one-click-blog-post-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react", "sonner"],
+    registryDependencies: ["one-click-blog-post"],
+    files: [
+      {
+        path: "examples/one-click-blog-post-demo.tsx",
         type: "registry:example",
       },
     ],

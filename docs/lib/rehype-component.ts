@@ -48,7 +48,7 @@ export function rehypeComponent() {
             }
 
             // Read the source file.
-            const filePath = src;
+            const filePath = path.join("docs", src);
             let source = fs.readFileSync(filePath, "utf8");
 
             // Replace imports.
@@ -110,7 +110,7 @@ export function rehypeComponent() {
             const src = component.files[0]?.path;
 
             // Read the source file.
-            const filePath = src;
+            const filePath = path.join("docs", src);
             let source = fs.readFileSync(filePath, "utf8");
 
             // Replace imports.

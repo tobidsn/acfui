@@ -69,6 +69,22 @@ export const Index: Record<string, any> = {
       subcategory: "",
       chunks: []
     },
+    "one-click-blog-post": {
+      name: "one-click-blog-post",
+      description: "",
+      type: "registry:ui",
+      registryDependencies: ["button","input","card","label","tooltip"],
+      files: [{
+        path: "registry/default/ui/one-click-blog-post.tsx",
+        type: "registry:ui",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/ui/one-click-blog-post.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
     "utils": {
       name: "utils",
       description: "",
@@ -528,6 +544,22 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: React.lazy(() => import("@/registry/default/examples/table-field-dynamic-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "one-click-blog-post-demo": {
+      name: "one-click-blog-post-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["one-click-blog-post"],
+      files: [{
+        path: "registry/default/examples/one-click-blog-post-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/examples/one-click-blog-post-demo.tsx")),
       source: "",
       category: "",
       subcategory: "",

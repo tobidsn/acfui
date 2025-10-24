@@ -12,7 +12,7 @@
   "files": [
     {
       "path": "examples/table-field-dynamic-demo.tsx",
-      "content": "\"use client\"\nimport { useState } from \"react\"\nimport { TableField, type TableFieldData } from \"@/registry/default/ui/table-field\"\n\nexport default function TableFieldDynamicDemo() {\n  const [data, setData] = useState<TableFieldData>({\n    columns: [\n      { id: \"name\", label: \"Name\", type: \"text\" },\n    ],\n    rows: [\n      { id: \"1\", data: { name: \"John Doe\" } },\n    ],\n  })\n  return (\n    <TableField\n      value={data}\n      onChange={setData}\n      allowAddColumn={true}\n      allowAddRow={true}\n      allowDeleteColumn={true}\n      allowDeleteRow={true}\n      instructions=\"Add both new rows and columns dynamically.\"\n    />\n  )\n} ",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport TableField, {\n  type TableFieldColumn,\n} from \"@/registry/default/ui/table-field\";\n\nexport default function TableFieldDynamicDemo() {\n  const [value, setValue] = useState('[{\"name\": \"John Doe\"}]');\n\n  const columns: TableFieldColumn[] = [\n    { name: \"name\", label: \"Name\", type: \"text\" },\n    { name: \"description\", label: \"Description\", type: \"textarea\" },\n  ];\n\n  return (\n    <TableField\n      name=\"dynamic-demo\"\n      label=\"Dynamic Demo\"\n      value={value}\n      columns={columns}\n      setValue={setValue}\n      caption=\"Add rows dynamically with text and textarea columns.\"\n    />\n  );\n}\n",
       "type": "registry:example",
       "target": ""
     }

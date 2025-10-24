@@ -1,0 +1,291 @@
+---
+title: One Click Blog Post
+description: A component for generating blog posts instantly with AI-powered content creation.
+preview: true
+links:
+  api: /docs/components/one-click-blog-post#api-reference
+  source: https://github.com/tobi/acfui/blob/main/docs/registry/default/ui/one-click-blog-post.tsx
+---
+
+<ComponentTabs name="one-click-blog-post-demo" />
+
+## Installation
+
+### CLI
+
+```package-install
+npx shadcn@latest add "https://acfui.com/r/one-click-blog-post"
+```
+
+### Manual
+
+<Steps>
+  <Step>
+    Install the following dependencies:
+
+    ```package-install
+    lucide-react class-variance-authority sonner
+    ```
+  </Step>
+  <Step>
+    Copy and paste the following code into your project.
+
+    <ComponentSource name="one-click-blog-post" />
+  </Step>
+  <Step>
+    Update the import paths to match your project setup.
+  </Step>
+</Steps>
+
+## Usage
+
+```tsx
+import { OneClickBlogPost } from "@/components/ui/one-click-blog-post"
+```
+
+```tsx
+<OneClickBlogPost />
+```
+
+## Examples
+
+### Basic
+
+A basic one-click blog post generator with keyword input and title generation.
+
+<ComponentTabs name="one-click-blog-post-demo" />
+
+## Features
+
+### Keyword Input
+- **Main Keyword Field**: Required input field with 80 character limit
+- **Character Counter**: Real-time character count display (0/80)
+- **Validation**: Prevents input beyond the character limit
+
+### Title Generation
+- **Title Field**: Required input field with 100 character limit
+- **Auto-Generate**: Button to automatically generate a compelling title
+- **Character Counter**: Real-time character count display (0/100)
+- **Manual Override**: Users can edit the generated title
+
+### AI-Powered Actions
+- **Generate Title**: Creates SEO-optimized titles based on the main keyword
+- **Run Generation**: Triggers the full blog post creation process
+- **Toast Notifications**: Success feedback for all actions
+
+### User Experience
+- **Help Tooltip**: Question mark icon with feature explanation
+- **Responsive Design**: Works seamlessly on desktop and mobile
+- **Visual Feedback**: Gradient buttons and clear visual hierarchy
+- **Accessibility**: Proper labels, tooltips, and keyboard navigation
+
+## API Reference
+
+### OneClickBlogPost
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | - | Additional CSS classes to apply to the component |
+
+## Data Flow
+
+### Input Validation
+- Main Keyword: Required, max 80 characters
+- Title: Required, max 100 characters
+- Real-time character counting prevents overflow
+
+### Title Generation Process
+1. User enters main keyword
+2. Clicks "Generate a Title" button
+3. Component generates SEO-optimized title
+4. Title auto-fills the input field
+5. User can modify if needed
+
+### Blog Post Generation Process
+1. User fills required fields
+2. Clicks "Run" button
+3. Component validates inputs
+4. Shows success notification
+5. Triggers blog post creation workflow
+
+## Integration Examples
+
+### With Form Libraries
+
+```tsx
+import { useForm } from "react-hook-form"
+import { OneClickBlogPost } from "@/components/ui/one-click-blog-post"
+
+function BlogPostForm() {
+  const form = useForm()
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+      <OneClickBlogPost />
+      <Button type="submit">Create Blog Post</Button>
+    </form>
+  )
+}
+```
+
+### With State Management
+
+```tsx
+import { useState } from "react"
+import { OneClickBlogPost } from "@/components/ui/one-click-blog-post"
+
+function BlogPostManager() {
+  const [posts, setPosts] = useState([])
+
+  const handlePostGenerated = (postData) => {
+    setPosts(prev => [...prev, postData])
+  }
+
+  return (
+    <div>
+      <OneClickBlogPost onPostGenerated={handlePostGenerated} />
+      {/* Display generated posts */}
+    </div>
+  )
+}
+```
+
+## Accessibility
+
+The One Click Blog Post component follows accessibility best practices:
+
+- **Keyboard Navigation** - Full keyboard support for all interactive elements
+- **Screen Reader Support** - Proper ARIA labels and descriptions
+- **Focus Management** - Clear focus indicators and logical tab order
+- **Form Validation** - Real-time validation with clear error messages
+- **Tooltip Accessibility** - Properly labeled help tooltips
+
+## Styling Customization
+
+### Theme Integration
+
+The component uses CSS custom properties for theming:
+
+```css
+:root {
+  --one-click-bg: hsl(var(--muted) / 0.5);
+  --one-click-border: hsl(var(--border));
+  --one-click-gradient-start: hsl(262 83% 58%);
+  --one-click-gradient-end: hsl(221 83% 53%);
+}
+```
+
+### Custom Styling
+
+```tsx
+<OneClickBlogPost
+  className="custom-blog-post"
+  style={{
+    backgroundColor: 'var(--custom-bg)',
+    borderRadius: '12px'
+  }}
+/>
+```
+
+## Performance Considerations
+
+- **Debounced Input**: Character counting updates are optimized
+- **Lazy Loading**: Component loads only when needed
+- **Minimal Re-renders**: Efficient state management prevents unnecessary updates
+- **Toast Optimization**: Notification system is lightweight and performant
+
+## Browser Support
+
+- **Modern Browsers**: Full support for Chrome, Firefox, Safari, Edge
+- **Mobile Browsers**: Optimized for iOS Safari and Android Chrome
+- **Accessibility**: WCAG 2.1 AA compliant
+
+## Common Patterns
+
+### Content Management Integration
+
+```tsx
+function ContentEditor() {
+  const [isGenerating, setIsGenerating] = useState(false)
+
+  return (
+    <div className="space-y-6">
+      <OneClickBlogPost />
+
+      {isGenerating && (
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin" />
+          Generating blog post...
+        </div>
+      )}
+    </div>
+  )
+}
+```
+
+### Workflow Automation
+
+```tsx
+function AutomatedBlogWorkflow() {
+  const [step, setStep] = useState('input')
+
+  const handleGenerationComplete = () => {
+    setStep('review')
+    // Additional workflow steps...
+  }
+
+  return (
+    <div>
+      {step === 'input' && (
+        <OneClickBlogPost onComplete={handleGenerationComplete} />
+      )}
+
+      {step === 'review' && (
+        <BlogPostReview />
+      )}
+    </div>
+  )
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+**Title generation not working**
+- Ensure main keyword is entered
+- Check network connectivity for AI services
+- Verify API keys are configured
+
+**Character limits not enforced**
+- Component has built-in validation
+- Check for custom overrides that may bypass limits
+
+**Toast notifications not showing**
+- Ensure `sonner` is properly installed
+- Check for toast provider in app root
+
+### Error Handling
+
+```tsx
+<OneClickBlogPost
+  onError={(error) => {
+    console.error('Blog post generation failed:', error)
+    toast.error('Failed to generate blog post')
+  }}
+/>
+```
+
+## Migration Guide
+
+### From v1 to v2
+
+- **Props API**: Simplified props interface
+- **Styling**: Updated to use new design tokens
+- **Dependencies**: Added `sonner` for toast notifications
+
+### Breaking Changes
+
+- Removed `onTitleGenerated` prop - now handled internally
+- Changed toast library from `react-hot-toast` to `sonner`
+- Updated gradient colors to match new design system

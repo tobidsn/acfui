@@ -12,7 +12,7 @@
   "files": [
     {
       "path": "examples/table-field-add-row-demo.tsx",
-      "content": "\"use client\"\nimport { useState } from \"react\"\nimport { TableField, type TableFieldData } from \"@/registry/default/ui/table-field\"\n\nexport default function TableFieldAddRowDemo() {\n  const [data, setData] = useState<TableFieldData>({\n    columns: [\n      { id: \"name\", label: \"Name\", type: \"text\" },\n      { id: \"email\", label: \"Email\", type: \"text\" },\n    ],\n    rows: [\n      { id: \"1\", data: { name: \"John Doe\", email: \"john@example.com\" } },\n    ],\n  })\n  return (\n    <TableField\n      value={data}\n      onChange={setData}\n      allowAddColumn={false}\n      allowAddRow={true}\n      allowDeleteColumn={true}\n      allowDeleteRow={true}\n      instructions=\"Add a new row to the bottom. Columns are fixed.\"\n    />\n  )\n} ",
+      "content": "\"use client\";\nimport { useState } from \"react\";\nimport TableField, {\n  type TableFieldColumn,\n} from \"@/registry/default/ui/table-field\";\n\nexport default function TableFieldAddRowDemo() {\n  const [value, setValue] = useState(\n    '[{\"name\": \"John Doe\", \"email\": \"john@example.com\"}]',\n  );\n\n  const columns: TableFieldColumn[] = [\n    { name: \"name\", label: \"Name\", type: \"text\" },\n    { name: \"email\", label: \"Email\", type: \"text\" },\n  ];\n\n  return (\n    <TableField\n      name=\"add-row-demo\"\n      label=\"Add Row Demo\"\n      value={value}\n      columns={columns}\n      setValue={setValue}\n      caption=\"Add a new row to the bottom. Columns are fixed.\"\n    />\n  );\n}\n",
       "type": "registry:example",
       "target": ""
     }

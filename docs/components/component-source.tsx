@@ -6,11 +6,10 @@
 
 import type * as React from "react";
 
-import { CodeBlockWrapper } from "@/components/code-block-wrapper";
 import { cn } from "@/registry/default/lib/utils";
 
 interface ComponentSourceProps extends React.HTMLAttributes<HTMLDivElement> {
-  src: string;
+  src?: string;
 }
 
 export function ComponentSource({
@@ -19,12 +18,14 @@ export function ComponentSource({
   ...props
 }: ComponentSourceProps) {
   return (
-    <CodeBlockWrapper
-      expandButtonTitle="Expand"
-      className={cn("overflow-hidden rounded-md [&_pre]:px-4", className)}
+    <div
+      className={cn(
+        "overflow-auto rounded-md border bg-muted p-4 [&_pre]:px-4",
+        className,
+      )}
       {...props}
     >
       {children}
-    </CodeBlockWrapper>
+    </div>
   );
 }

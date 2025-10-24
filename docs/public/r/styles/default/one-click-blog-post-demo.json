@@ -1,0 +1,19 @@
+{
+  "name": "one-click-blog-post-demo",
+  "type": "registry:example",
+  "dependencies": [
+    "lucide-react",
+    "sonner"
+  ],
+  "registryDependencies": [
+    "one-click-blog-post"
+  ],
+  "files": [
+    {
+      "path": "examples/one-click-blog-post-demo.tsx",
+      "content": "\"use client\";\n\nimport { OneClickBlogPost } from \"@/registry/default/ui/one-click-blog-post\";\n\nexport default function OneClickBlogPostDemo() {\n  return (\n    <div className=\"w-full max-w-2xl mx-auto p-6\">\n      <OneClickBlogPost />\n    </div>\n  );\n}\n",
+      "type": "registry:example",
+      "target": ""
+    }
+  ]
+}

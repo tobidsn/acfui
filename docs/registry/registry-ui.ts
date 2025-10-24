@@ -37,4 +37,16 @@ export const ui: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "table-field",
+    type: "registry:ui",
+    dependencies: ["class-variance-authority", "lucide-react"],
+    registryDependencies: ["button", "input"],
+    files: [
+      {
+        path: "ui/table-field.tsx",
+        type: "registry:ui",
+      },
+    ],
+  },
 ];

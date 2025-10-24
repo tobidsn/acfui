@@ -7,7 +7,7 @@
     "build:registry": "tsx --tsconfig ./tsconfig.scripts.json ./scripts/build-registry.mts",
     "postinstall": "pnpm --filter docs build && fumadocs-mdx",
     "dev": "next dev",
-    "start": "next start -p 3006",
+    "start": "next start -p 3004",
     "lint": "biome check .",
     "lint:fix": "biome check . --write",
     "typecheck": "tsc --noEmit",

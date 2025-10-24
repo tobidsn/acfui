@@ -274,4 +274,52 @@ export const examples: Registry["items"] = [
       },
     ],
   },
+  {
+    name: "table-field-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["table-field", "button", "input"],
+    files: [
+      {
+        path: "examples/table-field-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-field-add-column-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["table-field", "button", "input"],
+    files: [
+      {
+        path: "examples/table-field-add-column-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-field-add-row-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["table-field", "button", "input"],
+    files: [
+      {
+        path: "examples/table-field-add-row-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "table-field-dynamic-demo",
+    type: "registry:example",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["table-field", "button", "input"],
+    files: [
+      {
+        path: "examples/table-field-dynamic-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ];

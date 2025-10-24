@@ -53,6 +53,22 @@ export const Index: Record<string, any> = {
       subcategory: "",
       chunks: []
     },
+    "table-field": {
+      name: "table-field",
+      description: "",
+      type: "registry:ui",
+      registryDependencies: ["button","input"],
+      files: [{
+        path: "registry/default/ui/table-field.tsx",
+        type: "registry:ui",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/ui/table-field.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
     "utils": {
       name: "utils",
       description: "",
@@ -448,6 +464,70 @@ export const Index: Record<string, any> = {
         target: ""
       }],
       component: React.lazy(() => import("@/registry/default/examples/relationship-advanced-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "table-field-demo": {
+      name: "table-field-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["table-field","button","input"],
+      files: [{
+        path: "registry/default/examples/table-field-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/examples/table-field-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "table-field-add-column-demo": {
+      name: "table-field-add-column-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["table-field","button","input"],
+      files: [{
+        path: "registry/default/examples/table-field-add-column-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/examples/table-field-add-column-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "table-field-add-row-demo": {
+      name: "table-field-add-row-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["table-field","button","input"],
+      files: [{
+        path: "registry/default/examples/table-field-add-row-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/examples/table-field-add-row-demo.tsx")),
+      source: "",
+      category: "",
+      subcategory: "",
+      chunks: []
+    },
+    "table-field-dynamic-demo": {
+      name: "table-field-dynamic-demo",
+      description: "",
+      type: "registry:example",
+      registryDependencies: ["table-field","button","input"],
+      files: [{
+        path: "registry/default/examples/table-field-dynamic-demo.tsx",
+        type: "registry:example",
+        target: ""
+      }],
+      component: React.lazy(() => import("@/registry/default/examples/table-field-dynamic-demo.tsx")),
       source: "",
       category: "",
       subcategory: "",

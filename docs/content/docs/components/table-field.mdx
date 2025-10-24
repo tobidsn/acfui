@@ -1,0 +1,144 @@
+---
+title: TableField
+description: A dynamic, spreadsheet-like table component for adding, editing, and removing columns and rows with inline cell editing.
+preview: true
+links:
+  api: /docs/components/table-field#api-reference
+  source: https://github.com/tobi/acfui/blob/main/docs/registry/default/ui/table-field.tsx
+---
+
+<ComponentTabs name="table-field-demo" />
+
+## Installation
+
+### CLI
+
+```package-install
+npx shadcn@latest add "https://acfui.com/r/table-field"
+```
+
+### Manual
+
+<Steps>
+  <Step>
+    Install the following dependencies:
+
+    ```package-install
+    lucide-react class-variance-authority
+    ```
+  </Step>
+  <Step>
+    Copy and paste the following code into your project.
+
+    <ComponentSource name="table-field" />
+  </Step>
+  <Step>
+    Update the import paths to match your project setup.
+  </Step>
+</Steps>
+
+## Usage
+
+```tsx
+import { TableField } from "@/components/ui/table-field"
+```
+
+```tsx
+<TableField
+  value={data}
+  onChange={setData}
+/>
+```
+
+## Examples
+
+### Basic
+
+A basic editable table with dynamic columns and rows.
+
+<ComponentTabs name="table-field-demo" />
+
+### Add a new column to the right
+
+Editable values, with default rows. Only columns can be added dynamically.
+
+<ComponentTabs name="table-field-add-column-demo" />
+
+### Add a new row to the bottom
+
+Editable values, with default columns. Only rows can be added dynamically.
+
+<ComponentTabs name="table-field-add-row-demo" />
+
+### Add both new rows and columns dynamically
+
+Editable. Both rows and columns can be added/removed.
+
+<ComponentTabs name="table-field-dynamic-demo" />
+
+## Data Structure
+
+### TableFieldData
+
+```tsx
+interface TableFieldData {
+  columns: TableFieldColumn[]
+  rows: TableFieldRow[]
+}
+
+interface TableFieldColumn {
+  id: string
+  label: string
+  type?: "text" | "number" | "date" | "boolean" | "select"
+  options?: Array<{ value: string; label: string }>
+  required?: boolean
+  defaultValue?: any
+}
+
+interface TableFieldRow {
+  id: string
+  data: Record<string, any>
+}
+```
+
+## API Reference
+
+### TableField
+
+<AutoTypeTable
+  path="./registry/default/ui/table-field.tsx"
+  name="TableFieldProps"
+/>
+
+### TableFieldColumn
+
+```tsx
+interface TableFieldColumn {
+  id: string
+  label: string
+  type?: "text" | "number" | "date" | "boolean" | "select"
+  options?: Array<{ value: string; label: string }>
+  required?: boolean
+  defaultValue?: any
+}
+```
+
+### TableFieldRow
+
+```tsx
+interface TableFieldRow {
+  id: string
+  data: Record<string, any>
+}
+```
+
+## Accessibility
+
+The TableField component follows accessibility best practices:
+
+- **Keyboard Navigation** - Full keyboard support for all interactions
+- **Screen Reader Support** - Proper ARIA labels and descriptions
+- **Focus Management** - Clear focus indicators and logical tab order
+- **High Contrast** - Supports high contrast mode
+- **Reduced Motion** - Respects `prefers-reduced-motion` settings
+ 
